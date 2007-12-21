@@ -11,6 +11,7 @@ Group:		Networking/Other
 URL:		http://www.mainnerve.com/lft/
 License:	GPL
 BuildRequires:	libpcap-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 LFT, short for Layer Four Traceroute, is a sort of 'traceroute'
