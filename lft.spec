@@ -1,6 +1,6 @@
 %define name lft
 %define version 2.2
-%define release %mkrel 6
+%define release %mkrel 7
 
 Summary:	Alternative traceroute tool for network (reverse) engineers
 Name:		%{name}
@@ -11,7 +11,7 @@ Group:		Networking/Other
 URL:		http://www.mainnerve.com/lft/
 License:	GPL
 BuildRequires:	libpcap-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 LFT, short for Layer Four Traceroute, is a sort of 'traceroute'
