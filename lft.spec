@@ -1,17 +1,21 @@
 %define name lft
-%define version 2.2
-%define release %mkrel 8
+%define version 3.1
+%define release %mkrel 1
 
 Summary:	Alternative traceroute tool for network (reverse) engineers
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-Source0:	http://mainnerve.com/lft/%{name}-%{version}.tar.bz2
+URL:            http://pwhois.org/lft/
+Source0:	%{name}-%{version}.tar.gz
+Patch0:		lft-3.1-fix_install.patch
+Patch1:		lft-3.1-fix_str_fmt.patch
 Group:		Networking/Other
-URL:		http://www.mainnerve.com/lft/
-License:	GPL
+# http://pwhois.org/license.who
+License:	VOSTROM Public License
 BuildRequires:	libpcap-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Provides:	whob = %{version}-%{release}
 
 %description
 LFT, short for Layer Four Traceroute, is a sort of 'traceroute'
@@ -24,30 +28,26 @@ netblock name lookups, et al.
 %prep
 
 %setup -q -n %{name}-%{version}
+%patch0 -p0 -b .fix_install
+%patch1 -p0 -b .fix_str_fmt
 
 %build
-
 %configure2_5x
-
 %make
 
 %install
-[ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf "%{buildroot}"
+rm -rf %{buildroot}
 
-#%%makeinstall
-
-install -d %{buildroot}%{_bindir}
-install -d %{buildroot}%{_mandir}/man8
-install -m4755 lft %{buildroot}%{_bindir}/
-install -m644 lft.8 %{buildroot}%{_mandir}/man8/
+%makeinstall_std
 
 echo "lft is suid because it requires a access to a raw socket in order to send packet." > README.suid
+
 %clean
-[ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf "%{buildroot}"
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc CHANGELOG README TODO lft-manpage.html README.suid
-%{_bindir}/lft
-%{_mandir}/man8/lft.8*
-
+%doc CHANGELOG README TODO README.suid
+%attr(4755,root,root) %{_bindir}/lft
+%{_bindir}/whob
+%{_mandir}/man8/*
