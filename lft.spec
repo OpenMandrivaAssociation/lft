@@ -1,6 +1,6 @@
 %define name lft
 %define version 3.1
-%define release %mkrel 1
+%define release %mkrel 2
 
 Summary:	Alternative traceroute tool for network (reverse) engineers
 Name:		%{name}
