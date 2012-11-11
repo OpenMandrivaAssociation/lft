@@ -1,0 +1,17 @@
+diff -p -up ./Makefile.in.orig ./Makefile.in
+--- ./Makefile.in.orig	2010-03-05 10:45:48.972021982 +0200
++++ ./Makefile.in	2010-03-05 10:47:02.497772582 +0200
+@@ -53,11 +53,10 @@ install: lft lft.8 whob whob.8
+ 	test -d $(DESTDIR)$(bindir)/. || $(MKDIR) $(DESTDIR)$(bindir)
+ 	$(INSTALL) lft $(DESTDIR)$(bindir)/lft
+ 	$(INSTALL) whob $(DESTDIR)$(bindir)/whob
+-	@ ( echo chown root $(DESTDIR)$(bindir)/lft && chown root $(DESTDIR)$(bindir)/lft && echo chmod u+s $(DESTDIR)$(bindir)/lft && chmod u+s $(DESTDIR)$(bindir)/lft ) || echo "***" WARNING: could not set $(bindir) suid to root
+ 	test -d $(DESTDIR)$(mandir)/man8/. || $(MKDIR) $(DESTDIR)$(mandir)/man8
+ 	@echo "Installing LFT and WhoB manual pages"
+-	$(INSTALL) lft.8 $(DESTDIR)$(mandir)/man8/lft.8
+-	$(INSTALL) whob.8 $(DESTDIR)$(mandir)/man8/whob.8
++	$(INSTALL) -pm 644 lft.8 $(DESTDIR)$(mandir)/man8/lft.8
++	$(INSTALL) -pm 644 whob.8 $(DESTDIR)$(mandir)/man8/whob.8
+ 
+ clean:
+ 	$(RM) *.o core* lft whob *~

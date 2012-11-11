@@ -1,0 +1,13 @@
+diff -p -up ./lft_lib.c.orig ./lft_lib.c
+--- ./lft_lib.c.orig	2010-03-05 10:14:41.795772388 +0200
++++ ./lft_lib.c	2010-03-05 10:17:23.268770771 +0200
+@@ -717,7 +717,7 @@ void LFTDefaultEventHandler(lft_session_
+         printf("Left dispatch.\n");
+         break;
+     case EVT_DBG_LOG_MESSAGE:
+-        printf((const char *)params);
++        printf( "%s" , (const char *)params);
+         break;
+ 	case EVT_OCHECK_START:
+ 		if(sess->noisy)
+
