@@ -6,7 +6,7 @@ Summary:	Alternative traceroute tool for network (reverse) engineers
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-URL:            http://pwhois.org/lft/
+URL:            https://pwhois.org/lft/
 Source0:	%{name}-%{version}.tar.gz
 Patch0:		lft-3.1-fix_install.patch
 Patch1:		lft-3.1-fix_str_fmt.patch
