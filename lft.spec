@@ -13,6 +13,11 @@ Patch1:		lft-3.1-fix_str_fmt.patch
 Group:		Networking/Other
 # http://pwhois.org/license.who
 License:	VOSTROM Public License
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	libpcap-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Provides:	whob = %{version}-%{release}
