@@ -1,5 +1,5 @@
 %define name lft
-%define version 3.1
+%define version 3.99
 %define release 3
 
 Summary:	Alternative traceroute tool for network (reverse) engineers
@@ -31,10 +31,9 @@ features including AS number lookups, loose source routing,
 netblock name lookups, et al.
 
 %prep
-
 %setup -q -n %{name}-%{version}
-%patch0 -p0 -b .fix_install
-%patch1 -p0 -b .fix_str_fmt
+%patch -P0 -p0 -b .fix_install
+%patch -P1 -p0 -b .fix_str_fmt
 
 %build
 %configure2_5x

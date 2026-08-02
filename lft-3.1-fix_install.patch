@@ -1,17 +1,34 @@
-diff -p -up ./Makefile.in.orig ./Makefile.in
---- ./Makefile.in.orig	2010-03-05 10:45:48.972021982 +0200
-+++ ./Makefile.in	2010-03-05 10:47:02.497772582 +0200
-@@ -53,11 +53,10 @@ install: lft lft.8 whob whob.8
- 	test -d $(DESTDIR)$(bindir)/. || $(MKDIR) $(DESTDIR)$(bindir)
+--- ./Makefile.in.orig	2026-08-02 20:43:30.909442406 +0200
++++ ./Makefile.in	2026-08-02 20:43:30.924594385 +0200
+@@ -84,29 +84,10 @@ install: lft lft.8 whob whob.8
+ 	@test -d $(DESTDIR)$(bindir)/. || $(MKDIR) $(DESTDIR)$(bindir)
  	$(INSTALL) lft $(DESTDIR)$(bindir)/lft
  	$(INSTALL) whob $(DESTDIR)$(bindir)/whob
--	@ ( echo chown root $(DESTDIR)$(bindir)/lft && chown root $(DESTDIR)$(bindir)/lft && echo chmod u+s $(DESTDIR)$(bindir)/lft && chmod u+s $(DESTDIR)$(bindir)/lft ) || echo "***" WARNING: could not set $(bindir) suid to root
- 	test -d $(DESTDIR)$(mandir)/man8/. || $(MKDIR) $(DESTDIR)$(mandir)/man8
- 	@echo "Installing LFT and WhoB manual pages"
+-	@ if [ "$$(uname -s)" = "Linux" ]; then \
+-		if [ "$$(id -u)" = "0" ]; then \
+-			echo "  \_Granting setcap() permission to avoid setuid requirement"; \
+-			if setcap cap_net_raw,cap_net_admin=eip $(DESTDIR)$(bindir)/lft 2>/dev/null; then \
+-				echo "  \_Done (cap_net_raw,cap_net_admin=eip granted)"; \
+-			else \
+-				echo "  \_setcap failed or not available, falling back to setuid root"; \
+-				( chown root $(DESTDIR)$(bindir)/lft && chmod u+s $(DESTDIR)$(bindir)/lft ) || \
+-				echo "*** WARNING: could not grant capabilities or set $(DESTDIR)$(bindir)/lft setuid root"; \
+-			fi; \
+-		else \
+-			echo "*** WARNING: not running as root; cannot grant setcap or setuid permissions"; \
+-			echo "    Re-run 'make install' as root or with sudo to grant required privileges."; \
+-		fi; \
+-	else \
+-		echo "  \_Setting setuid root (platform does not support setcap)"; \
+-		( chown root $(DESTDIR)$(bindir)/lft && chmod u+s $(DESTDIR)$(bindir)/lft ) || \
+-		echo "*** WARNING: could not set $(DESTDIR)$(bindir)/lft setuid root"; \
+-	fi
+ 	@test -d $(DESTDIR)$(mandir)/man8/. || $(MKDIR) $(DESTDIR)$(mandir)/man8
+ 	@echo "Installing manual pages"
 -	$(INSTALL) lft.8 $(DESTDIR)$(mandir)/man8/lft.8
 -	$(INSTALL) whob.8 $(DESTDIR)$(mandir)/man8/whob.8
 +	$(INSTALL) -pm 644 lft.8 $(DESTDIR)$(mandir)/man8/lft.8
 +	$(INSTALL) -pm 644 whob.8 $(DESTDIR)$(mandir)/man8/whob.8
  
  clean:
- 	$(RM) *.o core* lft whob *~
+ 	$(RM) *.o core* lft whob *~ *.dSYM
